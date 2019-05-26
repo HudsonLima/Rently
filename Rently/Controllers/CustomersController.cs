@@ -26,9 +26,15 @@ namespace Rently.Controllers
         // GET: Customers
         public ActionResult Index()
         {
-            var customers = _context.Customers.Include(c => c.MembershipType).ToList(); 
-
-            return View(customers);
+            try
+            {
+                var customers = _context.Customers.Include(c => c.MembershipType).ToList();
+                return View(customers);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public ActionResult Details(int id)
