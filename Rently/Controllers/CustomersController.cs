@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Rently.ViewModels;
 
 namespace Rently.Controllers
 {
@@ -49,6 +50,17 @@ namespace Rently.Controllers
                 return HttpNotFound();
 
             return View(customer);
-        }       
+        }
+
+        public ActionResult New()
+        {
+            var membershipTypes = _context.MembershipTypes.ToList();
+            var viewModel = new NewCustomerViewModel
+            {
+                MemberShipTypes = membershipTypes
+            };
+
+            return View(viewModel);
+        }
     }
 }
