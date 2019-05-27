@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Rently.ViewModels;
 
 namespace Rently.Controllers
 {
@@ -39,8 +40,7 @@ namespace Rently.Controllers
 
         public ActionResult Details(int id)
         {
-
-
+            
             var customer = _context.Customers
                                   .Include(c => c.MembershipType)
                                   .SingleOrDefault(c => c.Id == id);
@@ -49,6 +49,26 @@ namespace Rently.Controllers
                 return HttpNotFound();
 
             return View(customer);
-        }       
+        }
+
+        public ActionResult New()
+        {
+            var membershipTypes = _context.MembershipTypes.ToList();
+            var viewModel = new NewCustomerViewModel
+            {
+                MemberShipTypes = membershipTypes
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Create(Customer customer)
+        {
+            _context.Customers.Add(customer);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index","Customers");
+        }
     }
 }
