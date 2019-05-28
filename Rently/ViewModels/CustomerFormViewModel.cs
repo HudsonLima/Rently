@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Rently.ViewModels
 {
-    public class NewCustomerViewModel
+    public class CustomerFormViewModel
     {
         public IEnumerable<MembershipType> MemberShipTypes { get; set; }
         public Customer Customer { get; set; }

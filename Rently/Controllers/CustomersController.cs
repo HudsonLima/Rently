@@ -54,21 +54,53 @@ namespace Rently.Controllers
         public ActionResult New()
         {
             var membershipTypes = _context.MembershipTypes.ToList();
-            var viewModel = new NewCustomerViewModel
+            var viewModel = new CustomerFormViewModel
             {
                 MemberShipTypes = membershipTypes
             };
 
-            return View(viewModel);
+            return View("CustomerForm",viewModel);
         }
 
         [HttpPost]
-        public ActionResult Create(Customer customer)
+        public ActionResult Save(Customer customer)
         {
+            if(customer.Id == 0)
+            { 
             _context.Customers.Add(customer);
+            
+            }
+            else
+            {
+                var cursomerInDB = _context.Customers.Single(c => c.Id == customer.Id);
+
+                cursomerInDB.Name = customer.Name;
+                cursomerInDB.Birthdate = customer.Birthdate;
+                cursomerInDB.MembershipTypeId = customer.MembershipTypeId;
+                cursomerInDB.IsSubscribedToNewsLetter = customer.IsSubscribedToNewsLetter;                
+            }
+
             _context.SaveChanges();
 
             return RedirectToAction("Index","Customers");
+        }
+
+        public ActionResult Edit(int Id)
+        {
+
+            var customer = _context.Customers.SingleOrDefault(c => c.Id == Id);
+
+            if (customer == null)
+                return HttpNotFound();
+
+
+            var viewModel = new CustomerFormViewModel
+            {
+                Customer = customer,
+                MemberShipTypes = _context.MembershipTypes.ToList()
+            };
+
+            return View("CustomerForm", viewModel);
         }
     }
 }
