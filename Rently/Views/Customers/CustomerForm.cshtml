@@ -2,17 +2,29 @@
 @model Rently.ViewModels.CustomerFormViewModel
 
 @{
+    /**/
+
     ViewBag.Title = "New";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>New Customer</h2>
 
-
-@using (Html.BeginForm("Create", "Customers"))
+@if (Model.Customer != null)
 {
+<h2>Edit Customer</h2>
+}
+else
+{
+<h2>New Customer</h2>
+}
+
+
+@using (Html.BeginForm("Save", "Customers"))
+{
+
     <div class="form-group">
-        @Html.LabelFor(m => m.Customer.Name)
+        @Html.LabelFor(m
+       => m.Customer.Name)
         @Html.TextBoxFor(m => m.Customer.Name, new { @class = "form-control" })
     </div>
 
@@ -31,6 +43,8 @@
             @Html.CheckBoxFor(m => m.Customer.IsSubscribedToNewsLetter) Subscribed to NewsLetter?
         </label>
     </div>
+
+    @Html.HiddenFor(m => m.Customer.Id);
 
     <button type="submit" class="btn btn-primary">Save</button>
 }
