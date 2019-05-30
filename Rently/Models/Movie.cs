@@ -12,12 +12,14 @@ namespace Rently.Models
         public string Name { get; set; }
         [Required]
         public Genre Genre { get; set; }
+        [Display(Name = "Genre")]
         public byte GenreId { get; set; }
 
         public DateTime DateAdded { get; set; }
 
         public DateTime ReleaseDate { get; set; }
 
+        [Display(Name = "Number In Stock")]
         public byte NumberInStock { get; set; }
     }
 }
