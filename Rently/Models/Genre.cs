@@ -9,6 +9,7 @@ namespace Rently.Models
     public class Genre
     {
         public byte Id { get; set; }
+        [Display(Name = "Genre")]
         [Required]
         [StringLength(255)]
         public string Name { get; set; }
