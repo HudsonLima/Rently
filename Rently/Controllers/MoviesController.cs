@@ -51,10 +51,17 @@ namespace Rently.Controllers
         }
 
         // movies
-        public ViewResult Index()
+        public ActionResult Index()
         {
-            var movie = _context.Movies.Include(c => c.Genre).ToList();
-            return View(movie);
+            try
+            {
+                var movies = _context.Movies.Include(c => c.Genre).ToList();
+                return View(movies);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         [Route("movies/released/{year}/{month:regex(\\d{2}):range(1,12)}")]
