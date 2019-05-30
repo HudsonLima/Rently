@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Rently.ViewModels;
 
 namespace Rently.Controllers
 {
@@ -45,6 +46,19 @@ namespace Rently.Controllers
             return View(viewModel);
         }
 
+
+
+        public ActionResult New()
+        {
+            var genreTypes = _context.Genres.ToList();
+            var viewModel = new MovieFormViewModel
+            {
+                GenreTypes = genreTypes
+            };
+
+            return View("MovieForm",viewModel);
+        }
+
         public ActionResult Edit(int id)
         {
             return Content("id=" + id);
@@ -78,6 +92,29 @@ namespace Rently.Controllers
                 return HttpNotFound();
 
             return View(movie);
+        }
+
+        [HttpPost]
+        public ActionResult Save(Movie movie)
+        {
+            if (movie.Id == 0)
+            {
+                _context.Movies.Add(movie);
+
+            }
+            else
+            {
+                var movieInDB = _context.Movies.Single(c => c.Id == movie.Id);
+
+                movieInDB.Name = movie.Name;
+                movieInDB.GenreId = movie.GenreId;
+                movieInDB.ReleaseDate = movie.ReleaseDate;
+                movieInDB.NumberInStock = movie.NumberInStock;
+            }
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Customers");
         }
     }
 }
