@@ -51,7 +51,8 @@ namespace Rently.Controllers
         public ActionResult New()
         {
             var genreTypes = _context.Genres.ToList();
-            var viewModel = new MovieFormViewModel
+            var movie = new Movie();
+            var viewModel = new MovieFormViewModel(movie)
             {
                 GenreTypes = genreTypes
             };
@@ -61,7 +62,19 @@ namespace Rently.Controllers
 
         public ActionResult Edit(int id)
         {
-            return Content("id=" + id);
+            var movie = _context.Movies.SingleOrDefault(c => c.Id == id);
+
+            if (movie == null)
+            {
+                return HttpNotFound();
+            }
+
+            var viewModel = new MovieFormViewModel(movie)
+            {
+                Genres = _context.Genres.ToList()
+            };
+
+            return View("MovieForm",viewModel);
         }
 
         // movies
@@ -98,6 +111,16 @@ namespace Rently.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Save(Movie movie)
         {
+            if(!ModelState.IsValid)
+            {
+                var viewModel = new MovieFormViewModel(movie)
+                {
+                    Genres = _context.Genres.ToList()
+                };
+
+                return View("MovieForm", viewModel);
+            }
+
             if (movie.Id == 0)
             {
                 _context.Movies.Add(movie);
@@ -114,6 +137,7 @@ namespace Rently.Controllers
             }
 
             _context.SaveChanges();
+           
 
             return RedirectToAction("Index", "Customers");
         }
