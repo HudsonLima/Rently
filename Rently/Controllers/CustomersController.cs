@@ -53,11 +53,10 @@ namespace Rently.Controllers
 
         public ActionResult New()
         {
-            var customer = new Customer();
             var membershipTypes = _context.MembershipTypes.ToList();
             var viewModel = new CustomerFormViewModel
             {
-                Customer = customer,
+                Customer = new Customer(),
                 MemberShipTypes = membershipTypes
             };
 
