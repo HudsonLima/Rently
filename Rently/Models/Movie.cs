@@ -20,10 +20,12 @@ namespace Rently.Models
 
         public DateTime DateAdded { get; set; }
 
+        [Display(Name = "Release Date")]
         public DateTime ReleaseDate { get; set; }
 
         [Display(Name = "Number In Stock")]
-        [Range(1, 20, ErrorMessage = "The field Number in Stock must be between {} and {1}.")]
+        [Range(1, 20, ErrorMessage = "The field Number in Stock must be between {1} and {2}.")]
+        [Required]
         public byte NumberInStock { get; set; }
     }
 }
