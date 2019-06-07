@@ -1,4 +1,4 @@
-## Projects Name
+## Project's Name
 Rently
 
 ## Description
