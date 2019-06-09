@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.1.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.1.0\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -174,15 +177,21 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\MappingProfile.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\CustomersController.cs" />
+    <Compile Include="Dto\MembershipTypeDto.cs" />
+    <Compile Include="Controllers\Api\MoviesController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
+    <Compile Include="Dto\CustomerDto.cs" />
+    <Compile Include="Dto\GenreDto.cs" />
+    <Compile Include="Dto\MovieDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -217,6 +226,14 @@
     <Compile Include="Migrations\201905260914404_AddGenre.cs" />
     <Compile Include="Migrations\201905260914404_AddGenre.Designer.cs">
       <DependentUpon>201905260914404_AddGenre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906091803378_AddNumberAvailableToMovie.cs" />
+    <Compile Include="Migrations\201906091803378_AddNumberAvailableToMovie.Designer.cs">
+      <DependentUpon>201906091803378_AddNumberAvailableToMovie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906091809389_SeedNumberAvaliableProperty.cs" />
+    <Compile Include="Migrations\201906091809389_SeedNumberAvaliableProperty.Designer.cs">
+      <DependentUpon>201906091809389_SeedNumberAvaliableProperty.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -339,6 +356,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905260914404_AddGenre.resx">
       <DependentUpon>201905260914404_AddGenre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906091803378_AddNumberAvailableToMovie.resx">
+      <DependentUpon>201906091803378_AddNumberAvailableToMovie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906091809389_SeedNumberAvaliableProperty.resx">
+      <DependentUpon>201906091809389_SeedNumberAvaliableProperty.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
