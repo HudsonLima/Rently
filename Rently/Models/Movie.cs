@@ -27,5 +27,7 @@ namespace Rently.Models
         [Range(1, 20, ErrorMessage = "The field Number in Stock must be between {1} and {2}.")]
         [Required]
         public byte NumberInStock { get; set; }
+
+        public int NumberAvailable { get;  set; }
     }
 }
