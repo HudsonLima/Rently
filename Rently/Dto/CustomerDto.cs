@@ -19,7 +19,9 @@ namespace Rently.Dto
 
         public byte MembershipTypeId { get; set; }
 
-      //  [Min18YearsIfAMember]
+        public MembershipTypeDto MembershipType { get; set; }
+
+        //  [Min18YearsIfAMember]
         public DateTime? Birthdate { get; set; }
     }
 }
