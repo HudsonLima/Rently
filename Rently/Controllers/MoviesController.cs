@@ -81,8 +81,8 @@ namespace Rently.Controllers
         {
             try
             {
-                var movies = _context.Movies.Include(c => c.Genre).ToList();
-                return View(movies);
+                //var movies = _context.Movies.Include(c => c.Genre).ToList();
+                return View();
             }
             catch (Exception ex)
             {
@@ -122,6 +122,7 @@ namespace Rently.Controllers
 
             if (movie.Id == 0)
             {
+                movie.DateAdded = DateTime.Now;
                 _context.Movies.Add(movie);
 
             }
