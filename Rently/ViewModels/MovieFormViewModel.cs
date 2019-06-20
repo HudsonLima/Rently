@@ -9,7 +9,6 @@ namespace Rently.ViewModels
 {
     public class MovieFormViewModel
     {
-        public IEnumerable<Genre> GenreTypes { get; set; }
 
         public int? Id { get; set; }
 
@@ -42,6 +41,7 @@ namespace Rently.ViewModels
             ReleaseDate = movie.ReleaseDate;
             NumberInStock = movie.NumberInStock;
             GenreId = movie.GenreId;
+
         }
     }
 

@@ -53,7 +53,7 @@ namespace Rently.Controllers
             var movie = new Movie();
             var viewModel = new MovieFormViewModel(movie)
             {
-                GenreTypes = genreTypes
+                Genres = genreTypes
             };
 
             return View("MovieForm",viewModel);
@@ -61,7 +61,9 @@ namespace Rently.Controllers
 
         public ActionResult Edit(int id)
         {
-            var movie = _context.Movies.SingleOrDefault(c => c.Id == id);
+            var movie = _context.Movies
+                        .Include(m => m.Genre)
+                        .SingleOrDefault(c => c.Id == id);
 
             if (movie == null)
             {
@@ -139,7 +141,7 @@ namespace Rently.Controllers
             _context.SaveChanges();
            
 
-            return RedirectToAction("Index", "Customers");
+            return RedirectToAction("Index", "Movies");
         }
     }
 }
