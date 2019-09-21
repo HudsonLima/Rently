@@ -44,9 +44,9 @@ namespace Rently.Controllers
 
             return View(viewModel);
         }
+        
 
-
-
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult New()
         {
             var genreTypes = _context.Genres.ToList();
@@ -83,8 +83,10 @@ namespace Rently.Controllers
         {
             try
             {
-                //var movies = _context.Movies.Include(c => c.Genre).ToList();
-                return View();
+                if (User.IsInRole(RoleName.CanManageMovies))
+                    return View("List");
+
+                return View("ReadOnlyList");
             }
             catch (Exception ex)
             {
