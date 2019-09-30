@@ -44,16 +44,16 @@ namespace Rently.Controllers
 
             return View(viewModel);
         }
+        
 
-
-
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult New()
         {
             var genreTypes = _context.Genres.ToList();
             var movie = new Movie();
             var viewModel = new MovieFormViewModel(movie)
             {
-                GenreTypes = genreTypes
+                Genres = genreTypes
             };
 
             return View("MovieForm",viewModel);
@@ -61,7 +61,9 @@ namespace Rently.Controllers
 
         public ActionResult Edit(int id)
         {
-            var movie = _context.Movies.SingleOrDefault(c => c.Id == id);
+            var movie = _context.Movies
+                        .Include(m => m.Genre)
+                        .SingleOrDefault(c => c.Id == id);
 
             if (movie == null)
             {
@@ -81,8 +83,10 @@ namespace Rently.Controllers
         {
             try
             {
-                var movies = _context.Movies.Include(c => c.Genre).ToList();
-                return View(movies);
+                if (User.IsInRole(RoleName.CanManageMovies))
+                    return View("List");
+
+                return View("ReadOnlyList");
             }
             catch (Exception ex)
             {
@@ -122,6 +126,7 @@ namespace Rently.Controllers
 
             if (movie.Id == 0)
             {
+                movie.DateAdded = DateTime.Now;
                 _context.Movies.Add(movie);
 
             }
@@ -138,7 +143,7 @@ namespace Rently.Controllers
             _context.SaveChanges();
            
 
-            return RedirectToAction("Index", "Customers");
+            return RedirectToAction("Index", "Movies");
         }
     }
 }
